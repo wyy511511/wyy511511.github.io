@@ -37,22 +37,57 @@
                 {"id": "HCI", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
 
 
-                {"id": "iOS Development", "size": 4, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
+                {"id": "iOS Development", "size": 10, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
+                {"id": "Apple Vision Pro", "size": 6, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
+                {"id": "AR/VR/MR", "size": 6, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
+
                 {"id": "Mobile Dev", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
                 
                 
                 
-                {"id": "Accessibility", "size": 3, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                {"id": "Accessibility", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                {"id": "Edu", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                {"id": "Culture", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                {"id": "MagicMask", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+
+                {"id": "Language Learning", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                {"id": "French(A2)", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                {"id": "Chinese", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                {"id": "FunChar", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                {"id": "LetsGo", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+
 
             ],
             "links": [
                 {"source": "PyTorch", "target": "Python", "value": 1},
                 {"source": "NLP", "target": "HCI", "value": 1},
                 {"source": "iOS Development", "target": "Mobile Dev", "value": 1},
+                {"source": "iOS Development", "target": "", "value": 1},
+                {"source": "Apple Vision Pro", "target": "AR/VR/MR", "value": 1},
+
+
                 {"source": "HCI", "target": "Mobile Dev", "value": 1},
+                {"source": "HCI", "target": "Edu", "value": 1},
+                {"source": "HCI", "target": "Culture", "value": 1},
+                {"source": "MagicMask", "target": "Culture", "value": 1},
+                {"source": "MagicMask", "target": "AR/VR/MR", "value": 1},
+                {"source": "MagicMask", "target": "iOS Development", "value": 1},
+
+
+
+                {"source": "Language Learning", "target": "Culture", "value": 1},
+                {"source": "Language Learning", "target": "French(A2)", "value": 1},
+                {"source": "Language Learning", "target": "Chinese", "value": 1},
+                {"source": "FunChar", "target": "Chinese", "value": 1},
+                {"source": "FunChar", "target": "NLP", "value": 1},
+                {"source": "FunChar", "target": "HCI", "value": 1},
+                {"source": "FunChar", "target": "iOS Development", "value": 1},
+
 
                 {"source": "Python", "target": "NLP", "value": 1},
                 {"source": "HCI", "target": "Accessibility", "value": 1},
+                {"source": "LetsGo", "target": "Accessibility", "value": 1},
+
             ]
         };
 
