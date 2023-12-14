@@ -64,7 +64,6 @@
                 {"source": "PyTorch", "target": "Python", "value": 1},
                 {"source": "NLP", "target": "HCI", "value": 1},
                 {"source": "iOS Development", "target": "Mobile Dev", "value": 1},
-                {"source": "iOS Development", "target": "", "value": 1},
                 {"source": "Apple Vision Pro", "target": "AR/VR/MR", "value": 1},
 
 
@@ -115,10 +114,10 @@
             .attr("r", function(d) { return d.size; })
             .attr("fill", function(d) { return d.color; })
             .on("click", function(d) {
-                console.log("Clicked on node: ", d.id, d.url); // 输出点击的节点的id
+                console.log("Clicked on node: ", d.id, d.url); 
                 if (d.url) {
-                    console.log("Opening URL: ", d.url); // 输出即将打开的URL
-                    window.location.href = d.url; // 在当前窗口打开链接
+                    console.log("Opening URL: ", d.url); 
+                    window.location.href = d.url; 
                 }
             })
             .call(d3.drag()
@@ -130,7 +129,7 @@
 
         var labels = node.append("text")
             .text(function(d) { return d.id; })
-            .attr('x', function(d) { return d.size + 2; }) // place text to right of node
+            .attr('x', function(d) { return d.size + 2; }) 
             .attr('y', 3);
 
         node.append("title")
