@@ -5,7 +5,9 @@
 Lunasol 
 
 ## Introduction:
-My personal website implemented the integration of an interactive network graph created using D3.js with the deployment of the Discourse open-source forum framework as a blogging platform. The network graph allows users to click on each node, redirecting them to the corresponding tag summary page on the blog.
+My personal website implemented the integration of an interactive network graph created using D3.js with the deployment of the Discourse open-source forum framework as a blogging platform. 
+
+The network graph allows users to click on each node, redirecting them to the corresponding tag summary page on the blog.
 
 ## Why Choose Discourse for Blogging?
 
