@@ -14,9 +14,47 @@
             font: 17px 'Comic Neue', sans-serif;
             font-weight: bold;
         }
+
+        nav {
+            background-color: #424a4d;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #FECEAB; /* Sample color */
+            font-family: 'Comic Neue', sans-serif;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            color: #99B898; /* Sample hover color */
+        }
     </style>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="about_me.html">About Me</a></li>
+            <li><a href="https://blog.amberwu.us">Blog</a></li>
+            <li><a href="https://wyy511511.github.io/skills/">Interest</a></li>
+
+        </ul>
+    </nav>
+
+    
     <script>
         var svg = d3.select("body").append("svg")
             .attr("width", window.innerWidth)
@@ -31,55 +69,95 @@
 
 
         var graph = {
-            "nodes": [
-                //
-                {"id": "PyTorch", "size": 7, "color": "#355C7D", "url": "https://pytorch.org/"},
-                {"id": "Python", "size": 10, "color": "#355C7D", "url": "https://www.python.org/"},
-                {"id": "NLP", "size": 9, "color": "#F8B195", "url": "https://www.nltk.org/"},
-                {"id": "HCI", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
-                {"id": "GenAI", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
-                {"id": "AllYouCanDraw", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
 
+                "nodes": [
+                {"id": "PyTorch", "size": 7, "color": "#355C7D", "url": "https://blog.amberwu.us"},
+                {"id": "Python", "size": 10, "color": "#355C7D", "url": "https://blog.amberwu.us"},
+                {"id": "NLP", "size": 9, "color": "#F8B195", "url": "https://blog.amberwu.us"},
+                {"id": "HCI", "size": 14, "color": "#99B898", "url": "https://blog.amberwu.us/c/hci/5"},
+                {"id": "GenAI", "size": 14, "color": "#99B898", "url": "https://blog.amberwu.us/c/hci/genai/15"},
+                {"id": "AllYouCanDraw", "size": 14, "color": "#99B898", "url": "https://blog.amberwu.us"},
 
+                {"id": "iOS Development", "size": 10, "color": "#C06C84", "url": "https://blog.amberwu.us/c/developer/ios/13"},
+                {"id": "Apple Vision Pro", "size": 6, "color": "#C06C84", "url": "https://blog.amberwu.us"},
+                {"id": "AR/VR/MR", "size": 6, "color": "#C06C84", "url": "https://blog.amberwu.us"},
+                {"id": "Unity 3D", "size": 4, "color": "#C06C84", "url": "https://blog.amberwu.us"},
+                {"id": "Blender", "size": 4, "color": "#C06C84", "url": "https://blog.amberwu.us"},
 
+                {"id": "Developer", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us/c/developer/12"},
+                {"id": "CS", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
 
-                {"id": "iOS Development", "size": 10, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
-                {"id": "Apple Vision Pro", "size": 6, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
-                {"id": "AR/VR/MR", "size": 6, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
-                {"id": "Developer", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-                {"id": "CS", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+                {"id": "Mobile Dev", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
+                {"id": "Visualization", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
+                {"id": "Data", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
+                {"id": "Text", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
+                {"id": "Graphic Design", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
 
+                {"id": "Accessibility", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/c/hci/accessibility/6"},
+                {"id": "Edu", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"},
+                {"id": "Culture", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/tag/culture-ich"},
+                {"id": "MagicMask", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/t/magicmask-reinterpreting-traditional-chinese-drama-culture-with-ar/18"},
 
-
-                {"id": "Mobile Dev", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-                {"id": "Visualization", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-                {"id": "Data", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-                {"id": "Text", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-                {"id": "Graphic Design", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-
-
-
-
-                
-                
-                
-                {"id": "Accessibility", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                {"id": "Edu", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                {"id": "Culture", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                {"id": "MagicMask", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-
-                {"id": "Language Learning", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                {"id": "French(A2)", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                {"id": "Chinese", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                {"id": "FunChar", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                {"id": "LetsGo", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                {"id": "Maps", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                {"id": "Geology", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-
-
-
-
+                {"id": "Language Learning", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/tag/language-learning"},
+                {"id": "French(A2)", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"},
+                {"id": "Chinese", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"},
+                {"id": "FunChar", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/t/funchar-exploring-the-semantics-of-chinese-characters-with-genai/19"},
+                {"id": "LetsGo", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/t/letsgo-navigation-app-for-blind-and-visually-impaired-people-utilizing-spatial-audio/20"},
+                {"id": "Maps", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"},
+                {"id": "Geology", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"}
             ],
+                // //
+                // {"id": "PyTorch", "size": 7, "color": "#355C7D", "url": "https://pytorch.org/"},
+                // {"id": "Python", "size": 10, "color": "#355C7D", "url": "https://www.python.org/"},
+                // {"id": "NLP", "size": 9, "color": "#F8B195", "url": "https://www.nltk.org/"},
+                // {"id": "HCI", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
+                // {"id": "GenAI", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
+                // {"id": "AllYouCanDraw", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
+
+
+
+
+                // {"id": "iOS Development", "size": 10, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
+                // {"id": "Apple Vision Pro", "size": 6, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
+                // {"id": "AR/VR/MR", "size": 6, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
+                // {"id": "Unity 3D", "size": 4, "color": "#C06C84", "url": "https://example.com"},
+                // {"id": "Blender", "size": 4, "color": "#C06C84", "url": "https://example.com"},
+
+
+                // {"id": "Developer", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+                // {"id": "CS", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+
+
+
+                // {"id": "Mobile Dev", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+                // {"id": "Visualization", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+                // {"id": "Data", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+                // {"id": "Text", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+                // {"id": "Graphic Design", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+
+
+
+
+                
+                
+                
+                // {"id": "Accessibility", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "Edu", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "Culture", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "MagicMask", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+
+                // {"id": "Language Learning", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "French(A2)", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "Chinese", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "FunChar", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "LetsGo", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "Maps", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "Geology", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+
+
+
+
+
             "links": [
                 {"source": "PyTorch", "target": "Python", "value": 1},
                 {"source": "NLP", "target": "HCI", "value": 1},
@@ -121,6 +199,10 @@
                 {"source": "HCI", "target": "Culture", "value": 1},
                 {"source": "MagicMask", "target": "Culture", "value": 1},
                 {"source": "MagicMask", "target": "AR/VR/MR", "value": 1},
+                {"source": "Unity 3D", "target": "AR/VR/MR", "value": 1},
+                {"source": "Blender", "target": "AR/VR/MR", "value": 1},
+
+
                 {"source": "MagicMask", "target": "iOS Development", "value": 1},
 
 
