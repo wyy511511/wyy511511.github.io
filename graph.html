@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Me</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <style>
+        .links line {
+            stroke: #424a4d;
+        }
+
+        .nodes text {
+            pointer-events: none;
+            font: 17px 'Comic Neue', sans-serif;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: #424a4d;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #FECEAB; 
+            font-family: 'Comic Neue', sans-serif;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            color: #99B898; 
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="https://wyy511511.github.io/about_me.html">About Me</a></li>
+            <li><a href="https://blog.amberwu.us">Blog</a></li>
+            <li><a href="https://wyy511511.github.io/index.html">Interest</a></li>
+            <li><a href="https://blog.amberwu.us/tag/my-projects">Projects</a></li>
+
+
+        </ul>
+    </nav>
+
+    
+    <script>
+        var svg = d3.select("body").append("svg")
+            .attr("width", window.innerWidth)
+            .attr("height", window.innerHeight);
+
+        var simulation = d3.forceSimulation()
+            .force("link", d3.forceLink().distance(30).id(function(d) { return d.id; }))
+            .force("charge", d3.forceManyBody().strength(-1000))
+            .force("center", d3.forceCenter(window.innerWidth / 2, window.innerHeight / 2))
+            // .force("collide", d3.forceCollide().radius(function(d) { return d.size + 10; }));
+
+
+
+        var graph = {
+
+                "nodes": [
+                {"id": "PyTorch", "size": 7, "color": "#355C7D", "url": "https://blog.amberwu.us"},
+                {"id": "Python", "size": 10, "color": "#355C7D", "url": "https://blog.amberwu.us"},
+                {"id": "NLP", "size": 9, "color": "#F8B195", "url": "https://blog.amberwu.us"},
+                {"id": "HCI", "size": 14, "color": "#99B898", "url": "https://blog.amberwu.us/c/hci/5"},
+                {"id": "GenAI", "size": 14, "color": "#99B898", "url": "https://blog.amberwu.us/c/hci/genai/15"},
+                {"id": "AllYouCanDraw", "size": 14, "color": "#99B898", "url": "https://blog.amberwu.us"},
+
+                {"id": "iOS Development", "size": 10, "color": "#C06C84", "url": "https://blog.amberwu.us/c/developer/ios/13"},
+                {"id": "Apple Vision Pro", "size": 6, "color": "#C06C84", "url": "https://blog.amberwu.us"},
+                {"id": "AR/VR/MR", "size": 6, "color": "#C06C84", "url": "https://blog.amberwu.us"},
+                {"id": "Unity 3D", "size": 4, "color": "#C06C84", "url": "https://blog.amberwu.us"},
+                {"id": "Blender", "size": 4, "color": "#C06C84", "url": "https://blog.amberwu.us"},
+
+                {"id": "Developer", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us/c/developer/12"},
+                {"id": "CS", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
+
+                {"id": "Mobile Dev", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
+                {"id": "Visualization", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
+                {"id": "Data", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
+                {"id": "Text", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
+                {"id": "Graphic Design", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
+
+                {"id": "Accessibility", "size": 9, "color": "#FECEAB", "url": "https://blog.amberwu.us/c/hci/accessibility/6"},
+                {"id": "Edu", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"},
+                {"id": "Culture", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/tag/culture-ich"},
+                {"id": "MagicMask", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/t/magicmask-reinterpreting-traditional-chinese-drama-culture-with-ar/18"},
+
+                {"id": "Language Learning", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/tag/language-learning"},
+                {"id": "French(A2)", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"},
+                {"id": "Chinese", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"},
+                {"id": "FunChar", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/t/funchar-exploring-the-semantics-of-chinese-characters-with-genai/19"},
+                {"id": "LetsGo", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/t/letsgo-navigation-app-for-blind-and-visually-impaired-people-utilizing-spatial-audio/20"},
+                {"id": "Maps", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"},
+                {"id": "Geology", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"}
+            ],
+                // //
+                // {"id": "PyTorch", "size": 7, "color": "#355C7D", "url": "https://pytorch.org/"},
+                // {"id": "Python", "size": 10, "color": "#355C7D", "url": "https://www.python.org/"},
+                // {"id": "NLP", "size": 9, "color": "#F8B195", "url": "https://www.nltk.org/"},
+                // {"id": "HCI", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
+                // {"id": "GenAI", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
+                // {"id": "AllYouCanDraw", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
+
+
+
+
+                // {"id": "iOS Development", "size": 10, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
+                // {"id": "Apple Vision Pro", "size": 6, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
+                // {"id": "AR/VR/MR", "size": 6, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
+                // {"id": "Unity 3D", "size": 4, "color": "#C06C84", "url": "https://example.com"},
+                // {"id": "Blender", "size": 4, "color": "#C06C84", "url": "https://example.com"},
+
+
+                // {"id": "Developer", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+                // {"id": "CS", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+
+
+
+                // {"id": "Mobile Dev", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+                // {"id": "Visualization", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+                // {"id": "Data", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+                // {"id": "Text", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+                // {"id": "Graphic Design", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
+
+
+
+
+                
+                
+                
+                // {"id": "Accessibility", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "Edu", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "Culture", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "MagicMask", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+
+                // {"id": "Language Learning", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "French(A2)", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "Chinese", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "FunChar", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "LetsGo", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "Maps", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+                // {"id": "Geology", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
+
+
+
+
+
+            "links": [
+                {"source": "PyTorch", "target": "Python", "value": 1},
+                {"source": "NLP", "target": "HCI", "value": 1},
+                {"source": "NLP", "target": "CS", "value": 1},
+
+                {"source": "iOS Development", "target": "Mobile Dev", "value": 1},
+                {"source": "Apple Vision Pro", "target": "AR/VR/MR", "value": 1},
+                {"source": "HCI", "target": "AR/VR/MR", "value": 1},
+                {"source": "CS", "target": "HCI", "value": 1},
+                {"source": "CS", "target": "Developer", "value": 1},
+                {"source": "Mobile Dev", "target": "Developer", "value": 1},
+
+                {"source": "Maps", "target": "Developer", "value": 1},
+                {"source": "Visualization", "target": "Maps", "value": 1},
+                {"source": "Visualization", "target": "Data", "value": 1},
+                {"source": "Text", "target": "Data", "value": 1},
+                {"source": "Text", "target": "NLP", "value": 1},
+                {"source": "Text", "target": "Graphic Design", "value": 1},
+
+
+
+
+
+
+
+                {"source": "GenAI", "target": "HCI", "value": 1},
+                {"source": "GenAI", "target": "AllYouCanDraw", "value": 1},
+                {"source": "GenAI", "target": "Edu", "value": 1},
+                {"source": "GenAI", "target": "FunChar", "value": 1},
+                {"source": "GenAI", "target": "Accessibility", "value": 1},
+
+
+
+
+
+
+
+
+                {"source": "HCI", "target": "Mobile Dev", "value": 1},
+                {"source": "HCI", "target": "Edu", "value": 1},
+                {"source": "HCI", "target": "Culture", "value": 1},
+                {"source": "MagicMask", "target": "Culture", "value": 1},
+                {"source": "MagicMask", "target": "AR/VR/MR", "value": 1},
+                {"source": "Unity 3D", "target": "AR/VR/MR", "value": 1},
+                {"source": "Blender", "target": "AR/VR/MR", "value": 1},
+
+
+                {"source": "MagicMask", "target": "iOS Development", "value": 1},
+
+
+
+                {"source": "Language Learning", "target": "Culture", "value": 1},
+                {"source": "Language Learning", "target": "French(A2)", "value": 1},
+
+                {"source": "Language Learning", "target": "Chinese", "value": 1},
+                {"source": "FunChar", "target": "Chinese", "value": 1},
+                {"source": "FunChar", "target": "NLP", "value": 1},
+                {"source": "FunChar", "target": "HCI", "value": 1},
+                {"source": "FunChar", "target": "iOS Development", "value": 1},
+
+
+                {"source": "Python", "target": "NLP", "value": 1},
+                {"source": "HCI", "target": "Accessibility", "value": 1},
+                {"source": "LetsGo", "target": "Accessibility", "value": 1},
+                {"source": "LetsGo", "target": "Maps", "value": 1},
+                {"source": "iOS Development", "target": "LetsGo", "value": 1},
+
+                {"source": "Geology", "target": "Maps", "value": 1},
+
+
+
+            ]
+        };
+
+        graph.nodes.forEach(function(d) {
+            d.x = Math.random() * window.innerWidth;
+            d.y = Math.random() * window.innerHeight;
+        });
+
+
+        var link = svg.append("g")
+            .attr("class", "links")
+            .selectAll("line")
+            .data(graph.links)
+            .enter().append("line");
+
+        var node = svg.append("g")
+            .attr("class", "nodes")
+            .selectAll("g")
+            .data(graph.nodes)
+            .enter().append("g");
+            
+        var circles = node.append("circle")
+            .attr("r", function(d) { return d.size; })
+            .attr("fill", function(d) { return d.color; })
+            .on("click", function(d) {
+                console.log("Clicked on node: ", d.id, d.url); 
+                if (d.url) {
+                    console.log("Opening URL: ", d.url); 
+                    window.location.href = d.url; 
+                }
+            })
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+
+
+        var labels = node.append("text")
+            .text(function(d) { return d.id; })
+            .attr('x', function(d) { return d.size + 2; }) 
+            .attr('y', 3);
+
+        node.append("title")
+            .text(function(d) { return d.id; });
+
+        simulation
+            .nodes(graph.nodes)
+            .on("tick", ticked);
+
+        simulation.force("link")
+            .links(graph.links);
+
+        function ticked() {
+            link
+                .attr("x1", function(d) { return d.source.x; })
+                .attr("y1", function(d) { return d.source.y; })
+                .attr("x2", function(d) { return d.target.x; })
+                .attr("y2", function(d) { return d.target.y; });
+
+            node
+                .attr("transform", function(d) {
+                    return "translate(" + d.x + "," + d.y + ")";
+                })
+        }
+
+        function dragstarted(d) {
+            if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(d) {
+            d.fx = d3.event.x;
+            d.fy = d3.event.y;
+        }
+
+        function dragended(d) {
+            if (!d3.event.active) simulation.alphaTarget(0).restart();
+            d.fx = null;
+            d.fy = null;
+        }
+    </script>
+</body>
+</html>

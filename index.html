@@ -1,318 +1,247 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>About Me</title>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
-    <style>
-        .links line {
-            stroke: #424a4d;
-        }
-
-        .nodes text {
-            pointer-events: none;
-            font: 17px 'Comic Neue', sans-serif;
-            font-weight: bold;
-        }
-
-        nav {
-            background-color: #424a4d;
-            padding: 10px;
-        }
-
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #FECEAB; 
-            font-family: 'Comic Neue', sans-serif;
-            font-size: 18px;
-        }
-
-        nav a:hover {
-            color: #99B898; 
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Anywhere</title>
+  <meta name="author" content="511">
+  <link rel="icon" href="./img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" type="text/css" href="navbar.css">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+    }
+    nav {
+        background-color: #424a4d;
+        padding: 10px;
+    }
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+    nav ul li {
+        margin: 0 15px;
+    }
+    nav a {
+        text-decoration: none;
+        color: #FECEAB; 
+        font-family: 'Comic Neue', sans-serif;
+        font-size: 18px;
+    }
+    nav a:hover {
+        color: #99B898; 
+    }
+    header {
+        padding: 20px;
+        background-color: #f4f4f4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    header img {
+        width: 150px;
+        border-radius: 50%;
+        margin-right: 20px;
+    }
+    header .intro {
+        max-width: 600px;
+    }
+    header h1 {
+        margin: 10px 0 5px;
+    }
+    header p {
+        color: gray;
+    }
+    section {
+        margin: 20px;
+    }
+    .about-me {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .about-me img {
+        width: 150px;
+        border-radius: 50%;
+        margin-right: 20px;
+    }
+    .about-me p {
+        max-width: 600px;
+    }
+    .publications ul {
+        list-style: none;
+        padding: 0;
+    }
+    .publications li {
+        margin-bottom: 10px;
+    }
+    .publications .buttons {
+        margin-top: 5px;
+    }
+    .publications .buttons a {
+        text-decoration: none;
+        color: white;
+        background-color: #007BFF;
+        padding: 5px 10px;
+        margin-right: 5px;
+        border-radius: 3px;
+    }
+    .publications .buttons a:hover {
+        background-color: #0056b3;
+    }
+    .projects {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    .project-card {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        aspect-ratio: 4 / 3;
+    }
+    .project-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    .project-card:hover img {
+        transform: scale(1.1);
+    }
+    .project-card .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .project-card:hover .overlay {
+        opacity: 1;
+    }
+  </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="https://wyy511511.github.io/about_me.html">About Me</a></li>
-            <li><a href="https://blog.amberwu.us">Blog</a></li>
-            <li><a href="https://wyy511511.github.io/index.html">Interest</a></li>
-            <li><a href="https://blog.amberwu.us/tag/my-projects">Projects</a></li>
-
-
-        </ul>
-    </nav>
-
-    
-    <script>
-        var svg = d3.select("body").append("svg")
-            .attr("width", window.innerWidth)
-            .attr("height", window.innerHeight);
-
-        var simulation = d3.forceSimulation()
-            .force("link", d3.forceLink().distance(30).id(function(d) { return d.id; }))
-            .force("charge", d3.forceManyBody().strength(-1000))
-            .force("center", d3.forceCenter(window.innerWidth / 2, window.innerHeight / 2))
-            // .force("collide", d3.forceCollide().radius(function(d) { return d.size + 10; }));
-
-
-
-        var graph = {
-
-                "nodes": [
-                {"id": "PyTorch", "size": 7, "color": "#355C7D", "url": "https://blog.amberwu.us"},
-                {"id": "Python", "size": 10, "color": "#355C7D", "url": "https://blog.amberwu.us"},
-                {"id": "NLP", "size": 9, "color": "#F8B195", "url": "https://blog.amberwu.us"},
-                {"id": "HCI", "size": 14, "color": "#99B898", "url": "https://blog.amberwu.us/c/hci/5"},
-                {"id": "GenAI", "size": 14, "color": "#99B898", "url": "https://blog.amberwu.us/c/hci/genai/15"},
-                {"id": "AllYouCanDraw", "size": 14, "color": "#99B898", "url": "https://blog.amberwu.us"},
-
-                {"id": "iOS Development", "size": 10, "color": "#C06C84", "url": "https://blog.amberwu.us/c/developer/ios/13"},
-                {"id": "Apple Vision Pro", "size": 6, "color": "#C06C84", "url": "https://blog.amberwu.us"},
-                {"id": "AR/VR/MR", "size": 6, "color": "#C06C84", "url": "https://blog.amberwu.us"},
-                {"id": "Unity 3D", "size": 4, "color": "#C06C84", "url": "https://blog.amberwu.us"},
-                {"id": "Blender", "size": 4, "color": "#C06C84", "url": "https://blog.amberwu.us"},
-
-                {"id": "Developer", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us/c/developer/12"},
-                {"id": "CS", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
-
-                {"id": "Mobile Dev", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
-                {"id": "Visualization", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
-                {"id": "Data", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
-                {"id": "Text", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
-                {"id": "Graphic Design", "size": 5, "color": "#6C5B7B", "url": "https://blog.amberwu.us"},
-
-                {"id": "Accessibility", "size": 9, "color": "#FECEAB", "url": "https://blog.amberwu.us/c/hci/accessibility/6"},
-                {"id": "Edu", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"},
-                {"id": "Culture", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/tag/culture-ich"},
-                {"id": "MagicMask", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/t/magicmask-reinterpreting-traditional-chinese-drama-culture-with-ar/18"},
-
-                {"id": "Language Learning", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/tag/language-learning"},
-                {"id": "French(A2)", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"},
-                {"id": "Chinese", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"},
-                {"id": "FunChar", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/t/funchar-exploring-the-semantics-of-chinese-characters-with-genai/19"},
-                {"id": "LetsGo", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us/t/letsgo-navigation-app-for-blind-and-visually-impaired-people-utilizing-spatial-audio/20"},
-                {"id": "Maps", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"},
-                {"id": "Geology", "size": 7, "color": "#FECEAB", "url": "https://blog.amberwu.us"}
-            ],
-                // //
-                // {"id": "PyTorch", "size": 7, "color": "#355C7D", "url": "https://pytorch.org/"},
-                // {"id": "Python", "size": 10, "color": "#355C7D", "url": "https://www.python.org/"},
-                // {"id": "NLP", "size": 9, "color": "#F8B195", "url": "https://www.nltk.org/"},
-                // {"id": "HCI", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
-                // {"id": "GenAI", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
-                // {"id": "AllYouCanDraw", "size": 14, "color": "#99B898", "url": "https://www.interaction-design.org/literature/topics/hci"},
-
-
-
-
-                // {"id": "iOS Development", "size": 10, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
-                // {"id": "Apple Vision Pro", "size": 6, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
-                // {"id": "AR/VR/MR", "size": 6, "color": "#C06C84", "url": "https://developer.apple.com/ios/"},
-                // {"id": "Unity 3D", "size": 4, "color": "#C06C84", "url": "https://example.com"},
-                // {"id": "Blender", "size": 4, "color": "#C06C84", "url": "https://example.com"},
-
-
-                // {"id": "Developer", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-                // {"id": "CS", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-
-
-
-                // {"id": "Mobile Dev", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-                // {"id": "Visualization", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-                // {"id": "Data", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-                // {"id": "Text", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-                // {"id": "Graphic Design", "size": 5, "color": "#6C5B7B", "url": "https://developer.android.com/"},
-
-
-
-
-                
-                
-                
-                // {"id": "Accessibility", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                // {"id": "Edu", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                // {"id": "Culture", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                // {"id": "MagicMask", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-
-                // {"id": "Language Learning", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                // {"id": "French(A2)", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                // {"id": "Chinese", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                // {"id": "FunChar", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                // {"id": "LetsGo", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                // {"id": "Maps", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-                // {"id": "Geology", "size": 7, "color": "#FECEAB", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"},
-
-
-
-
-
-            "links": [
-                {"source": "PyTorch", "target": "Python", "value": 1},
-                {"source": "NLP", "target": "HCI", "value": 1},
-                {"source": "NLP", "target": "CS", "value": 1},
-
-                {"source": "iOS Development", "target": "Mobile Dev", "value": 1},
-                {"source": "Apple Vision Pro", "target": "AR/VR/MR", "value": 1},
-                {"source": "HCI", "target": "AR/VR/MR", "value": 1},
-                {"source": "CS", "target": "HCI", "value": 1},
-                {"source": "CS", "target": "Developer", "value": 1},
-                {"source": "Mobile Dev", "target": "Developer", "value": 1},
-
-                {"source": "Maps", "target": "Developer", "value": 1},
-                {"source": "Visualization", "target": "Maps", "value": 1},
-                {"source": "Visualization", "target": "Data", "value": 1},
-                {"source": "Text", "target": "Data", "value": 1},
-                {"source": "Text", "target": "NLP", "value": 1},
-                {"source": "Text", "target": "Graphic Design", "value": 1},
-
-
-
-
-
-
-
-                {"source": "GenAI", "target": "HCI", "value": 1},
-                {"source": "GenAI", "target": "AllYouCanDraw", "value": 1},
-                {"source": "GenAI", "target": "Edu", "value": 1},
-                {"source": "GenAI", "target": "FunChar", "value": 1},
-                {"source": "GenAI", "target": "Accessibility", "value": 1},
-
-
-
-
-
-
-
-
-                {"source": "HCI", "target": "Mobile Dev", "value": 1},
-                {"source": "HCI", "target": "Edu", "value": 1},
-                {"source": "HCI", "target": "Culture", "value": 1},
-                {"source": "MagicMask", "target": "Culture", "value": 1},
-                {"source": "MagicMask", "target": "AR/VR/MR", "value": 1},
-                {"source": "Unity 3D", "target": "AR/VR/MR", "value": 1},
-                {"source": "Blender", "target": "AR/VR/MR", "value": 1},
-
-
-                {"source": "MagicMask", "target": "iOS Development", "value": 1},
-
-
-
-                {"source": "Language Learning", "target": "Culture", "value": 1},
-                {"source": "Language Learning", "target": "French(A2)", "value": 1},
-
-                {"source": "Language Learning", "target": "Chinese", "value": 1},
-                {"source": "FunChar", "target": "Chinese", "value": 1},
-                {"source": "FunChar", "target": "NLP", "value": 1},
-                {"source": "FunChar", "target": "HCI", "value": 1},
-                {"source": "FunChar", "target": "iOS Development", "value": 1},
-
-
-                {"source": "Python", "target": "NLP", "value": 1},
-                {"source": "HCI", "target": "Accessibility", "value": 1},
-                {"source": "LetsGo", "target": "Accessibility", "value": 1},
-                {"source": "LetsGo", "target": "Maps", "value": 1},
-                {"source": "iOS Development", "target": "LetsGo", "value": 1},
-
-                {"source": "Geology", "target": "Maps", "value": 1},
-
-
-
-            ]
-        };
-
-        graph.nodes.forEach(function(d) {
-            d.x = Math.random() * window.innerWidth;
-            d.y = Math.random() * window.innerHeight;
-        });
-
-
-        var link = svg.append("g")
-            .attr("class", "links")
-            .selectAll("line")
-            .data(graph.links)
-            .enter().append("line");
-
-        var node = svg.append("g")
-            .attr("class", "nodes")
-            .selectAll("g")
-            .data(graph.nodes)
-            .enter().append("g");
+  <nav>
+    <ul>
+        <li><a href="https://wyy511511.github.io/index.html">About Me</a></li>
+        <li><a href="https://blog.amberwu.us">Blog</a></li>
+        <li><a href="https://wyy511511.github.io/graph.html">Interest</a></li>
+        <li><a href="https://blog.amberwu.us/tag/my-projects">Projects</a></li>
+    </ul>
+  </nav>
+
+  <header>
+ 
+  </header>
+
+  <main>
+    <section class="about-me">
+        <div class="intro">
+            <img src="./img/511photo.jpg" alt="Photo">
+            <h1>Yaoyao Wu</h1>
+            <p>yawu8395 at colorado.edu</p>
+            <p>Boulder, CO</p>
+            <a href="https://www.linkedin.com/in/" target="_blank">
+              <i class="fab fa-linkedin-in"></i>
+            <a href="https://github.com/wyy511511" target="_blank">
+              <i class="fab fa-github-alt"></i>
+            </a>
             
-        var circles = node.append("circle")
-            .attr("r", function(d) { return d.size; })
-            .attr("fill", function(d) { return d.color; })
-            .on("click", function(d) {
-                console.log("Clicked on node: ", d.id, d.url); 
-                if (d.url) {
-                    console.log("Opening URL: ", d.url); 
-                    window.location.href = d.url; 
-                }
-            })
-            .call(d3.drag()
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended));
+          </div>
+        
+        <div>   
+            <p>Hello! I earned my Bachelor’s degree in Computer Science from the University of Colorado, Boulder, where I had the privilege of being advised by Prof. Tom Yeh. I also received valuable guidance from Prof. Tianshi Li at Northeastern University. Prior to this, I studied at BUPT.</p>
+            <p>
+                My research focuses on empowering individuals to transform emerging technologies into personal tools that cater to their unique needs and goals. This can be summarized in three key aspects:
+            </p>
+            <ul>
+                <li><strong>Enhancing interactivity and engagement:</strong> Leveraging technology to support personalized learning and <strong>education.</strong></li>
+                <li><strong>Ensuring safety and privacy:</strong> Developing usable solutions to build trust and security in technology.</li>
+                <li><strong>Improving accessibility:</strong> Making technology inclusive and beneficial to a wider audience.</li>
+            </ul>
+            <p>
+                To achieve these goals, I leverage diverse methodologies and prototypes, including but not limited to Multimodal Large Language Models, mobile development, sensors, XR/AR, crowdsourcing, and social media analytics.
+            </p>
+        </div>
+    </section>
 
+    <section class="publications">
+        <h2>Publications</h2>
+        <ul>
+            <li>
+                <strong>Rescriber: Smaller-LLM-Powered User-Led Data Minimization for Navigating</strong> - ACM CHI conference on Human Factors in Computing Systems, 2025 (Revise and Resubmit) 
+                <div class="buttons">
+                    <a href="./img/paper1.pdf" target="_blank">PDF</a>
+                    <a href="https://example.com" target="_blank">Website</a>
+                </div>
+            </li>
+            <li>
+                <strong>CORGI-PM: A Chinese Corpus For Gender Bias Probing and Mitigation</strong><br>
+                Ge Zhang, Yizhi Li, Yaoyao Wu, Linyuan Zhang, Chenghua Lin, Jiayi Geng, Shi Wang, Jie Fu<br>
+                <div class="buttons">
+                    <a href="https://arxiv.org/abs/2301.00395" target="_blank">Abstract</a>
+                    <a href="https://arxiv.org/pdf/2301.00395.pdf" target="_blank">PDF</a>
+                </div>
+            </li>
+        </ul>
+    </section>
 
-
-        var labels = node.append("text")
-            .text(function(d) { return d.id; })
-            .attr('x', function(d) { return d.size + 2; }) 
-            .attr('y', 3);
-
-        node.append("title")
-            .text(function(d) { return d.id; });
-
-        simulation
-            .nodes(graph.nodes)
-            .on("tick", ticked);
-
-        simulation.force("link")
-            .links(graph.links);
-
-        function ticked() {
-            link
-                .attr("x1", function(d) { return d.source.x; })
-                .attr("y1", function(d) { return d.source.y; })
-                .attr("x2", function(d) { return d.target.x; })
-                .attr("y2", function(d) { return d.target.y; });
-
-            node
-                .attr("transform", function(d) {
-                    return "translate(" + d.x + "," + d.y + ")";
-                })
-        }
-
-        function dragstarted(d) {
-            if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-            d.fx = d.x;
-            d.fy = d.y;
-        }
-
-        function dragged(d) {
-            d.fx = d3.event.x;
-            d.fy = d3.event.y;
-        }
-
-        function dragended(d) {
-            if (!d3.event.active) simulation.alphaTarget(0).restart();
-            d.fx = null;
-            d.fy = null;
-        }
-    </script>
+    <section class="projects">
+        <h2>Projects</h2>
+        <div class="projects">
+            <div class="project-card" onclick="location.href='https://blog.amberwu.us/t/myidnet-empowering-users-with-graph-based-digital-identity-management-and-advanced-security-auditing-beyond-traditional-password-managers/55';">
+                <img src="./img/myidnet.jpg" alt="Project 1">
+                <div class="overlay">MyIDNet</div>
+            </div>
+            <div class="project-card" onclick="location.href='https://blog.amberwu.us/t/funchar-exploring-the-semantics-of-chinese-characters-with-genai/19';">
+                <img src="./img/funchar.png" alt="Project 2">
+                <div class="overlay">FunChar</div>
+            </div>
+            <div class="project-card" onclick="location.href='https://example.com/project4';">
+                <img src="./img/crossword.png" alt="Project 4">
+                <div class="overlay">CrosswordBench</div>
+            </div>
+            <div class="project-card" onclick="location.href='https://blog.amberwu.us/t/letsgo-navigation-app-for-blind-and-visually-impaired-people-utilizing-spatial-audio/20';">
+                <img src="./img/letsgo.png" alt="Project 3">
+                <div class="overlay">LetsGo</div>
+            </div>
+            <div class="project-card" onclick="location.href='https://blog.amberwu.us/t/magicmask-reinterpreting-traditional-chinese-opera-culture-with-ar/18';">
+                <img src="./img/magicmask.png" alt="Project 4">
+                <div class="overlay">MagicMask</div>
+            </div>
+            <div class="project-card" onclick="location.href='https://example.com/project4';">
+                <img src="./img/lifeos.png" alt="Project 4">
+                <div class="overlay">LifeOS</div>
+            </div>
+            <div class="project-card" onclick="location.href='https://example.com/project4';">
+                <img src="./img/lifeos.png" alt="Project 4">
+                <div class="overlay">RoomTag</div>
+            </div>
+            <div class="project-card" onclick="location.href='https://example.com/project4';">
+                <img src="./img/lifeos.png" alt="Project 4">
+                <div class="overlay">SongLingo</div>
+            </div>
+        </div>
+    </section>
+  </main>
+  <footer>
+    <p>Thanks</p>
+  </footer>
 </body>
 </html>
